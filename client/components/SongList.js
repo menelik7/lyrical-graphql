@@ -1,9 +1,10 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import query from '../queries/fetchSongs';
 
 export default function SongList() {
-  const { loading, error, data } = useQuery(GET_SONG_TITLES);
+  const { loading, error, data } = useQuery(query);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
@@ -20,18 +21,9 @@ export default function SongList() {
     <div>
       <h4>Song List</h4>
       <ul className='collection'>{displaySongTitles}</ul>
-      <div style={{ textAlign: 'right', padding: '0 10px' }}>
-        <Link to='song-create'>Create song</Link>
-      </div>
+      <Link className='btn-floating btn-large red right' to='song-create'>
+        <i className='material-icons'>add</i>
+      </Link>
     </div>
   );
 }
-
-const GET_SONG_TITLES = gql`
-  query GetSongTitles {
-    songs {
-      id
-      title
-    }
-  }
-`;
