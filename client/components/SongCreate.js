@@ -5,7 +5,9 @@ import query from '../queries/fetchSongs';
 
 export default function SongCreate() {
   const [title, setTitle] = useState('');
-  const [createSong, { loading, error }] = useMutation(CREATE_SONG);
+  const [createSong, { loading, error }] = useMutation(CREATE_SONG, {
+    refetchQueries: [{ query }],
+  });
   const navigate = useNavigate();
 
   if (loading) return 'Submitting...';
@@ -15,7 +17,6 @@ export default function SongCreate() {
     event.preventDefault();
     createSong({
       variables: { title },
-      refetchQueries: [{ query }],
     }).then(() => {
       setTitle('');
       navigate('/');
