@@ -1,24 +1,26 @@
 import React from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import query from '../queries/fetchSongs';
 
 export default function SongList() {
   const { loading, error, data } = useQuery(query);
-  const [deleteSong, { loading: mutationProcessing, error: mutationError }] =
-    useMutation(DELETE_SONG, { refetchQueries: [{ query }] });
-  if (loading || mutationProcessing) return <p>Loading...</p>;
-  if (error || mutationError) return <p>Error : {error.message}</p>;
+  const [deleteSong] = useMutation(DELETE_SONG, {
+    refetchQueries: [{ query }],
+  });
+  const navigate = useNavigate();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
 
   const { songs } = data;
-  const onSongDelete = (id) => {
-    deleteSong({
-      variables: { id },
-    });
-  };
   const displaySongTitles = songs.map(({ id, title }) => {
     return (
-      <li className='collection-item' key={id}>
+      <li
+        className='collection-item'
+        key={id}
+        onClick={() => navigate(`song-detail/${id}`)}
+      >
         {title}
         <i
           style={{ cursor: 'pointer' }}
@@ -32,6 +34,12 @@ export default function SongList() {
       </li>
     );
   });
+
+  const onSongDelete = (id) => {
+    deleteSong({
+      variables: { id },
+    });
+  };
 
   return (
     <div>

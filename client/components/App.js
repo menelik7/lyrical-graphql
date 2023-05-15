@@ -15,7 +15,7 @@ export default function App() {
       element: <SongCreate />,
     },
     {
-      path: 'song-detail',
+      path: 'song-detail/:id',
       element: <SongDetail />,
     },
   ]);
