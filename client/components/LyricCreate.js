@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import mutation from '../mutations/addLyric';
-import query from '../queries/fetchSongs';
 
 export default function LyricCreate({ songId }) {
   const [content, setContent] = useState('');

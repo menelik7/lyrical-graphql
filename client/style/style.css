@@ -1,0 +1,19 @@
+.lyric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid gray;
+}
+
+.vote-box {
+  display: flex;
+  align-items: center;
+}
+.vote-box i {
+  margin-right: 5px;
+}
+.vote-box span {
+  text-align: right;
+  min-width: 20px;
+}

@@ -46,6 +46,7 @@ export default function SongCreate() {
 const CREATE_SONG = gql`
   mutation CreateSong($title: String) {
     addSong(title: $title) {
+      id
       title
     }
   }
