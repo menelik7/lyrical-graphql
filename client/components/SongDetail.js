@@ -7,10 +7,10 @@ export default function SongDetail() {
   const { id } = useParams();
   const { loading, error, data } = useQuery(query, { variables: { id } });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return;
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log('Data: ', data);
+  const { song } = data;
 
   return (
     <div>
@@ -19,7 +19,7 @@ export default function SongDetail() {
           <i className='material-icons'>home</i>
         </Link>
       </div>
-      <h3>Song Detail</h3>
+      <h3>{song.title}</h3>
     </div>
   );
 }

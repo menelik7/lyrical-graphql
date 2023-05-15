@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import query from '../queries/fetchSongs';
 
 export default function SongList() {
@@ -8,7 +8,6 @@ export default function SongList() {
   const [deleteSong] = useMutation(DELETE_SONG, {
     refetchQueries: [{ query }],
   });
-  const navigate = useNavigate();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
@@ -16,12 +15,8 @@ export default function SongList() {
   const { songs } = data;
   const displaySongTitles = songs.map(({ id, title }) => {
     return (
-      <li
-        className='collection-item'
-        key={id}
-        onClick={() => navigate(`song-detail/${id}`)}
-      >
-        {title}
+      <li className='collection-item' key={id}>
+        <Link to={`song-detail/${id}`}>{title}</Link>
         <i
           style={{ cursor: 'pointer' }}
           className='material-icons right'
